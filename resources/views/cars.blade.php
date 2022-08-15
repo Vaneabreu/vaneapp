@@ -9,9 +9,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <head>
-    <img src= "/vanessaapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/hytech.png">
+    <img src= "/vaneapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/hytech.png">
         <title>Aprendible</title>
-        <link rel="stylesheet" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/bootstrap.css">
 
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,7 +101,7 @@
                     var id = $(this).closest("tr").find("td:first").text();
 
                     $.ajax({
-                url  : "/vanessaapp/public/api/cars/"+id,
+                url  : "/vaneapp/public/api/cars/"+id,
                 type : "GET",
                 dataType : "json",
                 cache: false,
@@ -157,7 +157,7 @@
                 console.log(Array.from(formData));
 
                 $.ajax({
-                    url  : "/vanessaapp/public/api/cars",
+                    url  : "/vaneapp/public/api/cars",
                     type : "POST",
                     dataType : "json",
                     data : formData,
@@ -222,7 +222,7 @@
                     {
 
                         $.ajax({   
-                            url  : "/vanessaapp/public/api/cars/"+id,
+                            url  : "/vaneapp/public/api/cars/"+id,
                             type : "PUT",
                             dataType : "json",
                             data : datajson,
@@ -269,7 +269,7 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            url  : "/vanessaapp/public/api/cars/"+id,
+                            url  : "/vaneapp/public/api/cars/"+id,
                             type : "DELETE",
                             dataType : "json",
                             cache: false,
@@ -319,7 +319,7 @@
 
 
                         $.ajax({
-                            url  : "/vanessaapp/public/api/cars/"+id,
+                            url  : "/vaneapp/public/api/cars/"+id,
                             type : "DELETE",
                             dataType : "json",
                             cache: false,
@@ -373,7 +373,7 @@
 
             });
             $.ajax({
-                            url  : "/vanessaapp/public/api/cars-filter-all",
+                            url  : "/vaneapp/public/api/cars-filter-all",
                             type : "POST",
                             dataType : "json",
                             data : formData,

@@ -618,18 +618,30 @@ class TestController extends Controller
 
     public function updateTransfer(Request $request)
     {
-        $data=$request;
+        
         $id = $request->id;
+        $itbis =$request->itbis;
         $pending_debt = $request->pending_debt;
         $transfer = $request->transfer;
-        $id2 = $request->idcust2;
-        $total1 = ($pending_debt + $transfer);
-        $total2 = ($pending_debt - $transfer);
+        $id2 = $request->id2;
+
+        $itbis1 = (($pending_debt - $transfer*$itbis)/100);
+        $total1 = ($pending_debt - $transfer);
+        $total3 = ($total1 + $itbis1 );
+        $cust = Customer::where('id', '=', $id2)->first();
         
-        Customer::where('id', '=', $data['id2'])->where('pending_debt')->get();
-        Customer::where('id', '=', $data['id'])->update(['pending_debt' => $total2]);
-        Customer::where('id', '=', $data['id2'])->update(['pending_debt' =>  $total1]);
-        return response()->json($pending_debt);
+        $itbis2 = $cust->itbis; 
+        $pending_debt2 = $cust->pending_debt; 
+        
+        $itbis2 = (($pending_debt2 + $transfer *$itbis2)/100);
+        $total2 = ($pending_debt2 + $transfer);
+        $total4 = ($total2 + $itbis2);
+
+       Customer::where('id', '=', $id)->update(['pending_debt' => $total1]);
+       Customer::where('id', '=', $id)->update(['total' => $total3]);
+       Customer::where('id', '=', $id2)->update(['total' => $total4]);
+       
+       return Customer::where('id', '=', $id2)->update(['pending_debt' =>  $total2]);
         
     }
    

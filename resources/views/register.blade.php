@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
         <title>Aprendible</title>
-        <link rel="stylesheet" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/bootstrap.css">
 
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head> 
     <body>
-    <img src= "/vanessaapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/hytech.png">
+    <img src= "/vaneapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/hytech.png">
         <div class="container mt-1">
     @include('partials.nav')
        <form id="myform">
@@ -77,7 +77,7 @@
         
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-        <script src="/vanessaapp/public/assets/js/sweetalert2.all.min.js"></script>
+        <script src="/vaneapp/public/assets/js/sweetalert2.all.min.js"></script>
     <script>
 
         $(document).ready(function(){
@@ -107,7 +107,7 @@
                     var id = $(this).closest("tr").find("td:first").text();
 
                     $.ajax({
-                url  : "/vanessaapp/public/api/register/"+id,
+                url  : "/vaneapp/public/api/register/"+id,
                 type : "GET",
                 dataType : "json",
                 cache: false,
@@ -163,7 +163,7 @@
                 console.log(Array.from(formData));
 
                 $.ajax({
-                    url  : "/vanessaapp/public/api/register",
+                    url  : "/vaneapp/public/api/register",
                     type : "POST",
                     dataType : "json",
                     data : formData,
@@ -226,7 +226,7 @@
             
                 else{
                     $.ajax({
-                    url  : "/vanessaapp/public/api/register/"+id,
+                    url  : "/vaneapp/public/api/register/"+id,
                     type : "PUT",
                     dataType : "json",
                     data : datajson,
@@ -273,7 +273,7 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            url  : "/vanessaapp/public/api/register/"+id,
+                            url  : "/vaneapp/public/api/register/"+id,
                             type : "DELETE",
                             dataType : "json",
                             cache: false,
@@ -327,7 +327,7 @@
 
 
                         $.ajax({
-                            url  : "/vanessaapp/public/api/register/"+id,
+                            url  : "/vaneapp/public/api/register/"+id,
                             type : "DELETE",
                             dataType : "json",
                             cache: false,
@@ -381,7 +381,7 @@
             });
         
             $.ajax({
-                url  : "/vanessaapp/public/api/employees-filter-all",
+                url  : "/vaneapp/public/api/employees-filter-all",
                 type : "POST",
                 dataType : "json",
                 data : formData,

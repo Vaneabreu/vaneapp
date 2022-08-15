@@ -10,7 +10,7 @@
     
    
         <title>Aprendible</title>
-        <link rel="stylesheet" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/bootstrap.css">
 
 </body>
 </html>
@@ -77,7 +77,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <div class="modal-content">
     <span class="close">&times;</span>
     <th align="right"><font face=impact>Dear Customer </font></th>
-    <img src="/vanessaapp/public/assets/css/bootstrap4/customer.png" class="float-left" height="120px" width= "120px" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/customer.png">
+    <img src="/vaneapp/public/assets/css/bootstrap4/customer.png" class="float-left" height="120px" width= "120px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/customer.png">
     <table id="table-fields" class="table-fields">
                     </table> 
                     <tr>
@@ -156,7 +156,7 @@ window.onclick = function(event) {
   }
 }
 </script>
-    <img src= "/vanessaapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/hytech.png">
+    <img src= "/vaneapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/hytech.png">
        <div class="container mt-1">
     @include('partials.nav')
        <form id="myform">
@@ -195,7 +195,7 @@ window.onclick = function(event) {
                     </tr>
             </table> 
 
-            
+        
                 </form>
                 <br />
                 <br />
@@ -214,7 +214,7 @@ window.onclick = function(event) {
         
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-        <script src="/vanessaapp/public/assets/js/sweetalert2.all.min.js"></script>
+        <script src="/vaneapp/public/assets/js/sweetalert2.all.min.js"></script>
     <script>
 
         $(document).ready(function(){
@@ -242,6 +242,7 @@ window.onclick = function(event) {
                 var data = $("#myform").serializeArray();
                 var id = $("#id2").val();
                 var transfer = $("#transfer").val();
+                var itbis = $("#itbis").val();
                 var pending_debt = $("#pending_debt2").val();
                 var datajson = {};
                 let selectCustomers = document.getElementById('customers');
@@ -249,19 +250,20 @@ window.onclick = function(event) {
                // console.log(Array.from(data));
 
 
-               transfer = parseFloat (transfer);
-               pending_debt = parseFloat (pending_debt);
+               transfer = parseFloat(transfer);
+               pending_debt = parseFloat(pending_debt);
                id = parseInt (id);
                id2 = parseInt (id2);
                var total = (pending_debt+transfer);
-               console.log( total);
+               console.log(selectCustomers.value);
 
                 
                 formData.append("id" , id);
                 formData.append("transfer", transfer);
                 formData.append("pending_debt", pending_debt);
-                formData.append("id2", idcust2);
-                console.log();
+                formData.append("id2",  selectCustomers.value);
+                formData.append("itbis",  itbis);
+
               
 
                 if (id == ""){ 
@@ -274,7 +276,7 @@ window.onclick = function(event) {
 
                 else{
                     $.ajax({
-                    url  : "/vanessaapp/public/api/transfer",
+                    url  : "/vaneapp/public/api/transfer",
                     type : "POST",
                     dataType : "json",
                     data : formData,
@@ -310,7 +312,7 @@ window.onclick = function(event) {
                 var id = $(this).closest("tr").find("td:first").text();
                 console.log(id);
                 $.ajax({
-                    url  : "/vanessaapp/public/api/dashboard/"+id,
+                    url  : "/vaneapp/public/api/dashboard/"+id,
                     type : "GET",
                     dataType : "json",
                     cache: false,
@@ -382,7 +384,7 @@ window.onclick = function(event) {
                 formData.append("total" , addition);
 
                 $.ajax({
-                    url  : "/vanessaapp/public/api/dashboard",
+                    url  : "/vaneapp/public/api/dashboard",
                     type : "POST",
                     dataType : "json",
                     data : formData,
@@ -446,7 +448,7 @@ window.onclick = function(event) {
 
                 else{
                     $.ajax({
-                    url  : "/vanessaapp/public/api/dashboard/"+id,
+                    url  : "/vaneapp/public/api/dashboard/"+id,
                     type : "PUT",
                     dataType : "json",
                     data : datajson,
@@ -493,7 +495,7 @@ window.onclick = function(event) {
                 if (result.isConfirmed) {
 
                     $.ajax({
-                        url: "/vanessaapp/public/api/dashboard/" + id,
+                        url: "/vaneapp/public/api/dashboard/" + id,
                         type: "DELETE",
                         dataType: "json",
                         cache: false,
@@ -542,7 +544,7 @@ window.onclick = function(event) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/vanessaapp/public/api/dashboard/" + id,
+                        url: "/vaneapp/public/api/dashboard/" + id,
                         type: "DELETE",
                         dataType: "json",
                         cache: false,
@@ -585,7 +587,7 @@ window.onclick = function(event) {
                 console.log(id2);
             
                 $.ajax({
-                    url  : "/vanessaapp/public/api/dashboard/"+id2,
+                    url  : "/vaneapp/public/api/dashboard/"+id2,
                     type : "GET",
                     dataType : "json",
                     cache: false,
@@ -632,7 +634,7 @@ window.onclick = function(event) {
             });
 
                 $.ajax({
-                            url  : "/vanessaapp/public/api/customer-filter-all",
+                            url  : "/vaneapp/public/api/customer-filter-all",
                             type : "POST",
                             dataType : "json",
                             data : formData,

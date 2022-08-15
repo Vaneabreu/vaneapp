@@ -10,7 +10,7 @@
     
     
         <title>Aprendible</title>
-        <link rel="stylesheet" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/bootstrap.css">
         
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head> 
     <body>
-    <img src= "/vanessaapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/hytech.png">
+    <img src= "/vaneapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/hytech.png">
        <div class="container mt-1">
     @include('partials.nav')  
        <form id="myform">
@@ -97,7 +97,7 @@
                     var id = $(this).closest("tr").find("td:first").text();
 
                     $.ajax({
-                url  : "/vanessaapp/public/api/expenses/"+id,
+                url  : "/vaneapp/public/api/expenses/"+id,
                 type : "GET",
                 dataType : "json",
                 cache: false,
@@ -153,7 +153,7 @@
                 console.log(Array.from(formData));
 
                 $.ajax({
-                    url  : "/vanessaapp/public/api/expenses",
+                    url  : "/vaneapp/public/api/expenses",
                     type : "POST",
                     dataType : "json",
                     data : formData,
@@ -206,7 +206,7 @@
                     {
 
                         $.ajax({   
-                            url  : "/vanessaapp/public/api/expenses/"+id,
+                            url  : "/vaneapp/public/api/expenses/"+id,
                             type : "PUT",
                             dataType : "json",
                             data : datajson,
@@ -253,7 +253,7 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            url  : "/vanessaapp/public/api/expenses/"+id,
+                            url  : "/vaneapp/public/api/expenses/"+id,
                             type : "DELETE",
                             dataType : "json",
                             cache: false,
@@ -303,7 +303,7 @@
 
 
                         $.ajax({
-                            url  : "/vanessaapp/public/api/expenses/"+id,
+                            url  : "/vaneapp/public/api/expenses/"+id,
                             type : "DELETE",
                             dataType : "json",
                             cache: false,
@@ -357,7 +357,7 @@
 
             });
             $.ajax({
-                            url  : "/vanessaapp/public/api/expenses-filter-all",
+                            url  : "/vaneapp/public/api/expenses-filter-all",
                             type : "POST",
                             dataType : "json",
                             data : formData,

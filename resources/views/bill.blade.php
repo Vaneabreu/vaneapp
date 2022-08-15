@@ -11,7 +11,7 @@
 
     <title>Aprendible</title>
 
-    <link rel="stylesheet" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/bootstrap.css">
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +25,7 @@
 
 <body>
 <br />
-<img src= "/vanessaapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "330px" type="text/css" href="/vanessaapp/public/assets/css/bootstrap4/hytech.png">
+<img src= "/vaneapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "330px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/hytech.png">
     <div class="container mt-1">
         @include('partials.nav')
         <form id="myform">
@@ -51,11 +51,6 @@
                     <tr>
                         <th align="right"><font face=tahoma>Itbis </font></th>
                         <td> <input type="text" id="itbis" name="itbis" value="" /> </td>
-                    </tr>
-
-                    <tr>
-                        <th align="right"><font face=tahoma>Total </font></th>
-                        <td> <input type="text" id="total" name="total" value="" /> </td>
                     </tr>
 
                     <tr>
@@ -106,7 +101,7 @@
 
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <script src="/vanessaapp/public/assets/js/sweetalert2.all.min.js"></script>
+    <script src="/vaneapp/public/assets/js/sweetalert2.all.min.js"></script>
     <script>
     $(document).ready(function() {
 
@@ -130,7 +125,7 @@
             var id = $(this).closest("tr").find("td:first").text();
             console.log(id);
             $.ajax({
-                url: "/vanessaapp/public/api/bill/" + id,
+                url: "/vaneapp/public/api/bill/" + id,
                 type: "GET",
                 dataType: "json",
                 cache: false,
@@ -165,7 +160,6 @@
             $("#date").val("");
             $("#amount").val("");
             $("#itbis").val("");
-            $("#total").val("");
             $("#comment").val("");
             $("#username").val("");
             $("#search").val("");
@@ -179,9 +173,19 @@
             var formData = new FormData();
             var data = $("#myform").serializeArray();
             var id = $("#id").val();
+            var itbis = $("#itbis").val();
             var borrowed_amount = $("#borrowed_amount").val();
             var amount_paid = $("#amount_paid").val();
+            var pending_debt = $("#pending_debt").val();
 
+
+            itbis = parseFloat(itbis);
+            pending_debt = parseFloat(pending_debt);
+            var itb = (pending_debt*itbis/100);
+            var addition = (pending_debt + itb);
+            console.log(addition);
+      
+            
             borrowed_amount = parseFloat(borrowed_amount);
             amount_paid = parseFloat(amount_paid);
             var must = (borrowed_amount-amount_paid);
@@ -196,10 +200,12 @@
             });
             
             formData.append("must" ,must);
+            formData.append("addition" ,addition);
+            
             console.log(Array.from(formData));
 
             $.ajax({
-                url: "/vanessaapp/public/api/bill",
+                url: "/vaneapp/public/api/bill",
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -249,7 +255,7 @@
             } else {
 
                 $.ajax({
-                    url: "/vanessaapp/public/api/bill/" + id,
+                    url: "/vaneapp/public/api/bill/" + id,
                     type: "PUT",
                     dataType: "json",
                     data: datajson,
@@ -299,7 +305,7 @@
                 if (result.isConfirmed) {
 
                     $.ajax({
-                        url: "/vanessaapp/public/api/bill/" + id,
+                        url: "/vaneapp/public/api/bill/" + id,
                         type: "DELETE",
                         dataType: "json",
                         cache: false,
@@ -350,7 +356,7 @@
 
 
                     $.ajax({
-                        url: "/vanessaapp/public/api/bill/" + id,
+                        url: "/vaneapp/public/api/bill/" + id,
                         type: "DELETE",
                         dataType: "json",
                         cache: false,
@@ -400,7 +406,7 @@
 
         });
         $.ajax({
-            url: "/vanessaapp/public/api/bills-filter-all",
+            url: "/vaneapp/public/api/bills-filter-all",
             type: "POST",
             dataType: "json",
             data: formData,
@@ -416,7 +422,7 @@
                 var rowTittle = `<tr>
                                                     <th>ID</th>             
                                                     <th>Date</th>
-                                                    <th>Amount</th>
+                                                    <th>Pending Debt</th>
                                                     <th>Itbis</th>
                                                     <th>Total</th>
                                                     <th>Comment</th>
