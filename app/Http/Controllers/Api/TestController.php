@@ -591,13 +591,30 @@ class TestController extends Controller
 
     public function updateOrCreateCustomerDashboard (Request $request)
     {
+
+        $id = $request->id;
+        $itbis = $request->itbis;
+        $pending_debt = $request->pending_debt;
+        $transfer = $request->transfer;
+     
+
+        $itbis1 = (($pending_debt - $transfer)*$itbis/100);
+        $total1 = ($pending_debt - $transfer);
+        $total3 = ($total1 + $itbis1); 
+
+        
+
         $request->validate([ 
             'customer_name'=> 'required|string',
-            'phone'=> 'regex:/(\d{3})[-](\d{3})[-](\d{4})/i|required'
-            
+            'phone'=> 'regex:/(\d{3})[-](\d{3})[-](\d{4})/i|required',
+            'cedula'=> 'regex:/(\d{3})[-](\d{7})[-](\d{1})/i|required'
         ]);
+
+       Customer::where('id', '=', $id)->update(['total' => $total3]);
+       return Customer::updateOrCreate(['id'=> $request->id], $request->all());
         
-        return Customer::updateOrCreate(['id'=> $request->id], $request->all());
+        
+        
     }
 
 
@@ -618,25 +635,33 @@ class TestController extends Controller
 
     public function updateTransfer(Request $request)
     {
-        
+
+
         $id = $request->id;
-        $itbis =$request->itbis;
+        $itbis = $request->itbis;
         $pending_debt = $request->pending_debt;
         $transfer = $request->transfer;
         $id2 = $request->id2;
 
-        $itbis1 = (($pending_debt - $transfer*$itbis)/100);
+        $itbis1 = (($pending_debt - $transfer)*$itbis/100);
         $total1 = ($pending_debt - $transfer);
-        $total3 = ($total1 + $itbis1 );
+        $total3 = ($total1 + $itbis1); 
+
+        //dump($itbis);
+        //dump($itbis1);
+        //dump($total1);
+        //dump($total3);
+        //dd("dum");
+
         $cust = Customer::where('id', '=', $id2)->first();
-        
+     
         $itbis2 = $cust->itbis; 
         $pending_debt2 = $cust->pending_debt; 
         
-        $itbis2 = (($pending_debt2 + $transfer *$itbis2)/100);
+        $itbis2 = (($pending_debt2 + $transfer)*$itbis2/100);
         $total2 = ($pending_debt2 + $transfer);
         $total4 = ($total2 + $itbis2);
-
+        
        Customer::where('id', '=', $id)->update(['pending_debt' => $total1]);
        Customer::where('id', '=', $id)->update(['total' => $total3]);
        Customer::where('id', '=', $id2)->update(['total' => $total4]);

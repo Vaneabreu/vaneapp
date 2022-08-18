@@ -66,8 +66,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     </head> 
     <body>
  <!-- Trigger/Open The Modal -->
- <button id="myBtn">Open Modal </button> 
-
+ <button id="myBtn" class="btn btn-lg btn-Light"> <font face=impact>Open Modal</font></button>
  
 
 <!-- The Modal -->
@@ -76,8 +75,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <th align="right"><font face=impact>Dear Customer </font></th>
-    <img src="/vaneapp/public/assets/css/bootstrap4/customer.png" class="float-left" height="120px" width= "120px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/customer.png">
+     <!--<th align="right"><font face=impact>Dear Customer </font></th> -->
+     <div class="card">
+     <img src="/vaneapp/public/assets/css/bootstrap4/img_avatar1.png" class="float-left" height="150px" width= "160px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/img_avatar1.png">
+  <div class="container">
+    <h5 ><b><font face=Cambria>Name: <label <font face=tahoma id="customer_name2" name="customer_name2" value="" readonly="true"></label></font></b></h5>
+    <h5 ><b><font face=Cambria>Cedula: <label <font face=tahoma  id="cedula2" name="cedula2" value="" readonly="true"></label></font></b></h5>
+    
+  </div>
+</div> 
+    
     <table id="table-fields" class="table-fields">
                     </table> 
                     <tr>
@@ -85,11 +92,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <td> <input type="text" id="id2" name="id2" value="" readonly="true"/> </td>
                     </tr>
 
-
-                    <tr>
-                        <th align="right"><font face=tahoma>Customer_name  </font></th>
-                        <td> <input type="text" id="customer_name2" name="customer_name2" value="" readonly="true"/> </td>
-                    </tr>
 
                     <tr>
                         <th align="right"><font face=tahoma>Address</font></th>
@@ -121,11 +123,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 <label for="cust"><th align="right"><font face=impact> Total to transfer: </font><input type="text" id= "transfer" name= "transfer" value=""/> </label>
               
 <label for="cust"><th align="right"><font face=impact>Choose a Customer:</font></th></label>
-
+<i class='fas fa-arrow-down' style='font-size:24px'></i>
 <select name="customers" id="customers">
 
 </select>
-<button id="btn-transfer"type="button" class="btn btn-dark btn-sm">TRANSFER</button>
+<button id="btn-transfer"type="button" class="btn btn-outline-dark btn-sm"><font face=tahoma>TRANSFER</font></button>
   </div>
  
 <h2 id="result"></h2>
@@ -134,27 +136,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 </div> 
 
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+
 </script>
     <img src= "/vaneapp/public/assets/css/bootstrap4/hytech.png" class="float-left" height="100px" width= "370px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/hytech.png">
        <div class="container mt-1">
@@ -171,6 +153,11 @@ window.onclick = function(event) {
                     <tr>
                         <th align="right"><font face=tahoma>Customer_name  </font></th>
                         <td> <input type="text" id="customer_name" name="customer_name" value=""/> </td>
+                    </tr>
+
+                    <tr>
+                        <th align="right"><font face=tahoma>Cedula  </font></th>
+                        <td> <input type="text" id="cedula" name="cedula" value=""/> </td>
                     </tr>
 
                     <tr>
@@ -193,6 +180,8 @@ window.onclick = function(event) {
                         <th align="right"><font face=tahoma>Itbis </font></th>
                         <td> <input type="text" id="itbis" name="itbis" value=""/> </td>
                     </tr>
+
+
             </table> 
 
         
@@ -203,7 +192,6 @@ window.onclick = function(event) {
                 <br />
                 <br/>
                 <button id="btn-save" type="button" class="btn btn-sm round btn-success">SAVE</button>
-                <button id="btn-delete" type="button" class="btn btn-sm round btn-danger">DELETE</button>
                 <button id="btn-update"type="button" class="btn btn-sm round btn-primary">UPDATE</button>
                 <button id="btn-searchall"type="button" class="btn btn-sm round btn-info">SEARCH ALL</button>
                 <button id="btn-clear"type="button" class="btn btn-sm round btn-light">CLEAR</button>
@@ -217,7 +205,7 @@ window.onclick = function(event) {
         <script src="/vaneapp/public/assets/js/sweetalert2.all.min.js"></script>
     <script>
 
-        $(document).ready(function(){
+    $(document).ready(function(){
 
             loadGrid2();
 
@@ -242,7 +230,7 @@ window.onclick = function(event) {
                 var data = $("#myform").serializeArray();
                 var id = $("#id2").val();
                 var transfer = $("#transfer").val();
-                var itbis = $("#itbis").val();
+                var itbis = $("#itbis2").val();
                 var pending_debt = $("#pending_debt2").val();
                 var datajson = {};
                 let selectCustomers = document.getElementById('customers');
@@ -261,19 +249,19 @@ window.onclick = function(event) {
                 formData.append("id" , id);
                 formData.append("transfer", transfer);
                 formData.append("pending_debt", pending_debt);
-                formData.append("id2",  selectCustomers.value);
                 formData.append("itbis",  itbis);
+                formData.append("id2",  selectCustomers.value);
+            
 
               
 
-                if (id == ""){ 
+                if (pending_debt <= 0){ 
                     Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'The customer was not found!'
+                    text: 'This user has no amount to transfer!'
                     });
                 }
-
                 else{
                     $.ajax({
                     url  : "/vaneapp/public/api/transfer",
@@ -525,7 +513,7 @@ window.onclick = function(event) {
 
                 };
             });
-        });
+         });
 
 
 
@@ -582,10 +570,11 @@ window.onclick = function(event) {
                     
 
         $(document).on("click", ".btn-table-manage", function(e){
-                // var table = $(this).closest("table");
+            // var table = $(this).closest("table");
                 var id2 = $(this).closest("tr").find("td:first").text();
                 console.log(id2);
-            
+
+
                 $.ajax({
                     url  : "/vaneapp/public/api/dashboard/"+id2,
                     type : "GET",
@@ -593,28 +582,48 @@ window.onclick = function(event) {
                     cache: false,
                     global: false,
                     success :  function(res)
-                    
                     {
-                        $.each(res, function(index, value){
-                            $("#"+index+"2").val(value);
-                            console.log(index+"  "+value);
 
-                    });
+                    $.each(res, function(index, value){
+                        if(index == "customer_name"){
+                            document.getElementById('customer_name2').innerHTML = value;//asi se le pasa el valor a un label
+                        }
+                        else if (index == "cedula"){
+                            document.getElementById('cedula2').innerHTML = value;
+                        }
                         
-                        if (res.length == 0) 
-                            {
-                                Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'The customer was not found!'
-                                });
+
+                         $("#"+index+"2").val(value);
+                        console.log(index+"  "+value);
+                    });
+
+                   
+
+                        // Get the modal
+                        var modal = document.getElementById("myModal");
+                            // Get the button that opens the modal
+                            var btn = document.getElementById("myBtn");
+                            // Get the <span> element that closes the modal
+                            var span = document.getElementsByClassName("close")[0];
+                            // When the user clicks the button, open the modal
+                            btn.onclick = function() {
+                            modal.style.display = "block";
                             }
-
+                            // When the user clicks on <span> (x), close the modal
+                            span.onclick = function() {
+                            modal.style.display = "none";
+                            }
+                            // When the user clicks anywhere outside of the modal, close it
+                            window.onclick  = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                            }
+                    
                     }
-
+                
                 });
-
-            });
+        });
             
     });
 
@@ -627,7 +636,7 @@ window.onclick = function(event) {
                 var name = v.name;
                 var value = v.value;
 
-                if (name != "search") {
+                if (name != "search" && name != "_token") {
                     formData.append(name, $("#search").val());
                 }
 
@@ -652,6 +661,7 @@ window.onclick = function(event) {
                                 var rowTittle = `<tr>
                                                     <th>ID</th>             
                                                     <th>Customer name</th>
+                                                    <th>Cedula</th>
                                                     <th>Address</th>
                                                     <th>Phone</th>
                                                     <th>Created at</th>
@@ -695,7 +705,7 @@ window.onclick = function(event) {
                              
                              if (ix == "pending_debt") {
 
-                                if (vx <="100") {
+                                if (vx <= 0) {
 
                                     td = td + `<td style="color:#FF0000">`+vx+`</td>`;
                                 } else {
@@ -718,14 +728,14 @@ window.onclick = function(event) {
                                 });
                             
                                 $("#data-table").append(row); // muestra el resultado de un campo al hacer la consulta
-                                    if (res.length == 0) 
-                                    {
-                                        Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'The customer was not found!'
-                                        });
-                                    }
+                                    //if (res.length == 0) 
+                                    //{
+                                        //Swal.fire({
+                                        //icon: 'error',
+                                        //title: 'Oops...',
+                                        //text: 'The customer was not found!'
+                                        //});
+                                    //}
                             
 
                             }
