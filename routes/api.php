@@ -189,6 +189,10 @@ Route::middleware('auth.basic')->group(function (){
     Route::post('/notes-filter-all', [TestController::class, 'getNotesFilterAll']);
     
     Route::post('/transfer', [TestController::class, 'updateTransfer']);
+
+    Route::post('/customer-image', [TestController::class, 'postProfileImage']);
+
+    
 });
 
 

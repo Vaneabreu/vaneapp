@@ -15,6 +15,7 @@ use App\Models\cars;
 use App\Models\expenses;
 use App\Models\bill_detail;
 use App\Models\notes;
+use App\Models\Image;
 use illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
@@ -312,6 +313,8 @@ class TestController extends Controller
         return  User::all();
     }
 
+    
+
     public function getUsersFilter(Request $request)
     {
         $user = new User;
@@ -592,6 +595,8 @@ class TestController extends Controller
     public function updateOrCreateCustomerDashboard (Request $request)
     {
 
+        $request->file('image')->store('public');
+
         $id = $request->id;
         $itbis = $request->itbis;
         $pending_debt = $request->pending_debt;
@@ -607,7 +612,7 @@ class TestController extends Controller
         $request->validate([ 
             'customer_name'=> 'required|string',
             'phone'=> 'regex:/(\d{3})[-](\d{3})[-](\d{4})/i|required',
-            'cedula'=> 'regex:/(\d{3})[-](\d{7})[-](\d{1})/i|required'
+            'cedula'=> 'regex:/(\d{3})[-](\d{7})[-](\d{1})/i|required' //valido y pongo el error en la vista al momento de guardar
         ]);
 
        Customer::where('id', '=', $id)->update(['total' => $total3]);
@@ -633,6 +638,8 @@ class TestController extends Controller
         
     }
 
+    
+    
     public function updateTransfer(Request $request)
     {
 
@@ -669,7 +676,32 @@ class TestController extends Controller
        return Customer::where('id', '=', $id2)->update(['pending_debt' =>  $total2]);
         
     }
-   
+    
+
+   public function postProfileImage(Request $request)
+{
+    $this->validate($request, [
+        'photo' => 'required|image' //que solo se suban imagenes 
+    ]);
+
+    $customer = auth()->user();//se accede al usuario que ha iniciado secion en la plataforma
+    $extension = $request-> file('photo')->getClientOriginalExtension();//se obtiene la extension del usuario
+    $file_name = $customer->id. '.' . $extension; //nombre del archivo
+    $path = public_path('customer/image/'.$file_name);//ruta donde se guarda la imagen
+
+    Customer::make($request->file('photo'))
+    ->fit(144, 144)
+    ->save($path);
+
+    
+    $customer->photo = $extension;
+    $customer->save;
+
+    $data['success'] = true;
+    $data['path'] = $path;
+
+    return $data;
+}
     
     
 }

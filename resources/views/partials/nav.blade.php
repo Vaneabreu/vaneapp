@@ -1,8 +1,14 @@
-<div class="btn-group btn-group-lg">
-  <button  onclick="location.href='home'"type="button" class="btn btn-success btn-lg"> <font face=impact>HOME </font></button>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="topnav">
+<button  onclick="location.href='home'"type="button" class="btn btn-success"> <font face=impact> <i class="fa fa-home"></i>HOME </font></button>
+
   <button  onclick="location.href='login'" type="button" class="btn btn-success"> <font face=impact>LOGIN</font></button>
   <button  onclick="location.href='logout'" type="button" class="btn btn-success"> <font face=impact>LOGOUT</font></button>
+  <input type="text" placeholder="Search.." id="search"  name="search" value="" onkeyup="loadGrid2();" />
 </div> 
+
+
 <div class="container">
 <nav class="navbar navbar-expand-sm bg-light justify-content-center">
   <div class="btn-group">

@@ -30,5 +30,13 @@ class customer extends Model
         return $this->belongsToMany(branches::class, 'branches', 'id', 'branch_id');
     }
 
+    public function getAvatarUrl()
+    {
+    if ($this->photo_extension)
+        return asset('customer-image/'.$this->id.'.'.$this->photo_extension);
+
+    return asset('customer-image/default.gif');
+    }
+
     
 }

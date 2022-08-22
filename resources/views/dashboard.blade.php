@@ -3,6 +3,7 @@
 ?>
 
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_','-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -77,9 +78,27 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <span class="close">&times;</span>
      <!--<th align="right"><font face=impact>Dear Customer </font></th> -->
      <div class="card">
-     <img src="/vaneapp/public/assets/css/bootstrap4/img_avatar1.png" class="float-left" height="150px" width= "160px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/img_avatar1.png">
+     <html>
+<body>
+
+<form action="{{ url('customer/image') }}" id="avatarForm">
+    {{ csrf_field() }} <!-- campo oculto-->
+    <input type="file" style="display: none" id="avatarInput">
+</form>
+<img src="/vaneapp/public/assets/css/bootstrap4/custgift.gif" id="avatarImage" class="float-left" height="250px" width= "335px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/custgift.gif">
+
+</body>
+
+</html>
+     
+     <!--<img src="/vaneapp/public/assets/css/bootstrap4/custgift.gif" class="float-left" height="250px" width= "335px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/custgift.gif">-->
+     <!--<img src="/vaneapp/public/assets/css/bootstrap4/female.gif" class="float-left" height="250px" width= "335px" type="text/css" href="/vaneapp/public/assets/css/bootstrap4/female.gif">-->
+     
   <div class="container">
+
+  
     <h5 ><b><font face=Cambria>Name: <label <font face=tahoma id="customer_name2" name="customer_name2" value="" readonly="true"></label></font></b></h5>
+   
     <h5 ><b><font face=Cambria>Cedula: <label <font face=tahoma  id="cedula2" name="cedula2" value="" readonly="true"></label></font></b></h5>
     
   </div>
@@ -123,7 +142,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 <label for="cust"><th align="right"><font face=impact> Total to transfer: </font><input type="text" id= "transfer" name= "transfer" value=""/> </label>
               
 <label for="cust"><th align="right"><font face=impact>Choose a Customer:</font></th></label>
-<i class='fas fa-arrow-down' style='font-size:24px'></i>
+
 <select name="customers" id="customers">
 
 </select>
@@ -159,6 +178,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <th align="right"><font face=tahoma>Cedula  </font></th>
                         <td> <input type="text" id="cedula" name="cedula" value=""/> </td>
                     </tr>
+                    
+                    <tr>
+                        <th align="right"><font face=tahoma>Gender  </font></th>
+                        <td> <input type="text" id="gender" name="gender" value=""/> </td>
+                    </tr>
+
 
                     <tr>
                         <th align="right"><font face=tahoma>Address</font></th>
@@ -188,9 +213,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 </form>
                 <br />
                 <br />
-                <font face=impact> Search    </font> <input type="text" id="search"  class="btn btn-outline-success" name="search" value="" onkeyup="loadGrid2();" />
-                <br />
-                <br/>
+                
+                <!--<input type="text" placeholder="Search.." id="search"  name="search" value="" onkeyup="loadGrid2();" />-->
+                
                 <button id="btn-save" type="button" class="btn btn-sm round btn-success">SAVE</button>
                 <button id="btn-update"type="button" class="btn btn-sm round btn-primary">UPDATE</button>
                 <button id="btn-searchall"type="button" class="btn btn-sm round btn-info">SEARCH ALL</button>
@@ -335,6 +360,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
             $("#btn-clear").on("click", function(e){
                  $("#id").val("");
                  $("#customer_name").val("");
+                 $("#cedula").val("");
+                 $("#gender").val("");
                  $("#address").val("");
                  $("#phone").val("");
                  $("#pending_debt").val("");
@@ -409,7 +436,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
             });
 
             $("#btn-update").on("click", function(e){
-
+               
+                
                 var formData = new FormData();
                 var data = $("#myform").serializeArray();
                 var id = $("#id").val();
@@ -438,6 +466,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     $.ajax({
                     url  : "/vaneapp/public/api/dashboard/"+id,
                     type : "PUT",
+                    //enctype="multipart/form-data",
                     dataType : "json",
                     data : datajson,
                     cache: false,
@@ -466,7 +495,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
             });
 
             $("#btn-delete").on("click", function(e) {
-
             var formData = new FormData();
             var data = $("#myform").serializeArray();
             var id = $("#id").val();
@@ -583,6 +611,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     global: false,
                     success :  function(res)
                     {
+                    loadGrid2();
 
                     $.each(res, function(index, value){
                         if(index == "customer_name"){
@@ -597,6 +626,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         console.log(index+"  "+value);
                     });
 
+                    
                    
 
                         // Get the modal
@@ -606,6 +636,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             // Get the <span> element that closes the modal
                             var span = document.getElementsByClassName("close")[0];
                             // When the user clicks the button, open the modal
+                            //var gender=document.getElementById("masculine");
+                           //var imagenacambiar1=document.getElementById("imgbase1");
+                            //var imagenacambiar2=document.getElementById("imgbase2");
                             btn.onclick = function() {
                             modal.style.display = "block";
                             }
@@ -618,14 +651,64 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             if (event.target == modal) {
                                 modal.style.display = "none";
                             }
-                            }
+                        
+
+                                
+                                }
                     
                     }
+                    
                 
                 });
         });
+
+                                
+                                var $avatarImage, $avatarInput, $avatarForm;
+                            
+
+                                $(function () {
+
+                                $avatarImage = $('#avatarImage');
+                                $avatarInput = $('#avatarInput');
+                                $avatarForm = $('#avatarForm');
+                                
+
+                                $avatarImage.on('click', function () {
+                                    $avatarInput.click();
+                                });
+
+                                $avatarInput.on('change', function () { // change:cambio de4 valor
+                                    alert('change');
+                                });
+                            });
+
+                           
+                            $avatarForm = $('#avatarForm');
+                            $avatarUrl = $avatarForm.attr('action');
+                            $avatarInput.on('change', function () {
+                            var formData = new FormData();
+                            formData.append('photo', $avatarInput[0].files[0]); // solo subir un archivo  a la vez 
+                            
+
+                            $.ajax({
+                                url  : "/vaneapp/public/api/customer-image",
+                                method: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false
+                            }).done(function (data) {
+                                if (data.success)
+                                  $avatarImage.attr('src','./images/users/'+data.file_name + '?' + new Date().getTime());
+                            }).fail(function() {
+                                alert('La imagen subida no tiene el formato correcto');
+                            });
+                            });
+
+
+        
+});
             
-    });
+    
 
         function loadGrid2(){
             var formData = new FormData();
@@ -662,6 +745,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <th>ID</th>             
                                                     <th>Customer name</th>
                                                     <th>Cedula</th>
+                                                    <th>Gender</th>
                                                     <th>Address</th>
                                                     <th>Phone</th>
                                                     <th>Created at</th>
@@ -685,9 +769,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                                       if(vx == null){
                                        vx = "";
+                                    
 
-
-                             }
+                            }
 
                              if(ix =="itbis"){
                                 vx = vx+"%" ;
@@ -699,7 +783,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                 drop = `<option value=`+id+`>`+vx+`</option>`;
                                 $("#customers").append(drop);
                                 
-                             }
+                            }
 
                              
                              
@@ -712,16 +796,18 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                     td = td + `<td style="color:#010302">`+vx+`</td>`;
                                 }
 
-                                } else 
+                            } else 
                                 {
                                     td = td + `<td>`+vx+`</td>`;
+                                    
 
                                 }
-
+                            
+                                                        
                                 });
                                         
                                     td = td + `<td><button id="btn-table-search-`+i+`" class="btn-table-search btn btn-sm round btn-info" type="button">Load</button></td>`;
-                                    td = td + `<td><button id="btn-table-delete-`+i+`" class="btn-table-delete btn btn-sm round btn-danger" type="button">Delete</button></td>`;
+                                    td = td + `<td><button id="btn-table-delete-`+i+`" class="btn-table-delete btn btn-sm round  btn-danger" type="button">Delete</button></td>`;
                                     td = td + `<td><button id="btn-table-manage-`+i+`" class="btn-table-manage btn btn-sm round btn-success" type="button">Manage</button></td>`;
                                     row = row + `<tr>`+td+`</tr>`;
                                     td = "";
